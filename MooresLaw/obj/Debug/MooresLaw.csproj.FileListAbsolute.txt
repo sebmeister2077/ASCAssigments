@@ -1,0 +1,6 @@
+C:\Users\Sebas\source\repos\MooresLaw\bin\Debug\MooresLaw.exe.config
+C:\Users\Sebas\source\repos\MooresLaw\bin\Debug\MooresLaw.exe
+C:\Users\Sebas\source\repos\MooresLaw\bin\Debug\MooresLaw.pdb
+C:\Users\Sebas\source\repos\MooresLaw\obj\Debug\MooresLaw.csprojAssemblyReference.cache
+C:\Users\Sebas\source\repos\MooresLaw\obj\Debug\MooresLaw.exe
+C:\Users\Sebas\source\repos\MooresLaw\obj\Debug\MooresLaw.pdb
