@@ -8,16 +8,20 @@ namespace Conversii
 {
     class Program
     {
+        private static char CautaCaracter(double x)
+        {
+            if (x >= 0 && x <= 9)
+                return (char)('0'+x);
+            if (x >= 10)
+                return (char)('A' + x-10);
+            return '=';
+        }
         static void Main(string[] args)
         {
-
-            
-             
             string numar;
             char[] nrintreg=new char[20],nrdec=new char[20];
             int baza,bazaprinc;
             bool esteNegativ = false;
-            Stack<int> stiva = new Stack<int>();
             Console.WriteLine("Introduceti baza principala: ");
             if (int.TryParse(Console.ReadLine(), out bazaprinc)&&bazaprinc>=2&&bazaprinc<=256)
             {
@@ -42,22 +46,24 @@ namespace Conversii
                             nrdec[y++] = c;
                     }
                     x--;
+
+                    #region Conversie IN Baza 10
                     if (bazaprinc != 10)//conversie IN baza 10
                     {
+   
                         foreach (char c in nrintreg)
                         {
                             if (c >= '0' && c <= '9')
-                                nr1 +=(int)(c-'0')*(int)Math.Pow(bazaprinc, x);
+                                nr1 +=(int)(c-'0'+0)*(int)Math.Pow(bazaprinc, x);
                             else
                                 nr1 += (int)(c-'A'+10)*(int)Math.Pow(bazaprinc,  x);
+                            Console.WriteLine("x={1},C={2}, nr1={0}",nr1,x,c.ToString());
                             x--;
                             if (x == -1)
                                 break;
                             
                         }
                         int auxy = y;
-
-                        Console.WriteLine(y);
                         y = -1;
                         foreach (char c in nrdec)
                         {
@@ -67,109 +73,93 @@ namespace Conversii
                                 nr2 += (c-'0')*(decimal)Math.Pow(bazaprinc, y);
                             else
                                 nr2 += (c-'A'+10)*(decimal)Math.Pow(bazaprinc, y);
-                            y--;
-                            Console.Write("C={0}", c);
-                            if (y == -1*auxy)
+                            if (y == -auxy)
                                 break;
+                            y--;
                         }
-                        Console.WriteLine();
                         if(nr2>1)//daca trebuie adaugat unitati la numarul intreg
                         {
                             nr1 += (int)nr2;
                             nr2 -= (int)nr2;//se va sterge partea intreaga chiar daca nu ar conta asta
                         }
                     }
+                    #endregion
+
 
                     //Conversie DIN baza 10
                     string str = "";
+                    #region Conversie DIN Baza 10
                     if (baza != 10)
                     {
-                        string partea2int, partea2dec;
                         if (nr1 == 0.0D && nr2 == 0.0M)
                         {
                             string s = "";
                             foreach (char c in nrintreg)
                                 s += c;
-                            if (baza > 10)
-                                partea2int = s;
-                            else
-                                nr1 = Double.Parse(s);
+                            nr1 = Double.Parse(s);
                             s = "0.";
                             foreach (char c in nrdec)
                                 s += c;
-                            if (baza > 10)
-                                partea2dec = s;
-                            else
-                                nr2 = Decimal.Parse(s);
+                            nr2 = Decimal.Parse(s);
                         }
-                        if (baza < 10)//Intro baza mai mica
+                        Stack<double> stiva = new Stack<double>();
+                        while (nr1 > 0)
                         {
-                            while (nr1 > 0)
-                            {
-                                str += nr1 % baza;
-                                nr1 = (int)nr1 / baza;
-                            }
-                            str += ".";
-                            if (nr2 == 0.0M)
-                            {
-                                str += "0";
-                            }
-                            else
-                            {
-                                List<int> finalDecResults = new List<int>();
-                                List<decimal> pastValues = new List<decimal>();
-                                bool done = false;
-                                while (nr2 != 0.0M)
-                                {
-                                    nr2 = nr2 * baza;
-                                    finalDecResults.Add((int)nr2);
-                                    pastValues.Add(nr2);
-                                    nr2 = nr2 - (int)nr2;
-                                    if (pastValues.Count > 1 && pastValues.Contains(nr2))//s-a regasit acelasi deimpartit => exista o perioada
-                                    {
-                                        int i = 1, j = 1;
-                                        foreach (decimal past in pastValues)
-                                        {
-                                            if (past == nr2)
-                                                break;
-                                            i++;
-                                        }
-                                        foreach (int result in finalDecResults)
-                                        {
-                                            if (i == j)
-                                                str += "(";
-                                            str += result.ToString();
-                                            j++;
-                                        }
-                                        str += ")";
-                                        done = true;
-                                    }
-                                    if (done == true)
-                                        break;
-
-                                }
-                                if (!done)
-                                    foreach (int result in finalDecResults)
-                                    {
-                                        str += result.ToString();
-                                    }
-                            }
+                            stiva.Push(nr1 % baza);
+                            nr1 =(int)nr1/ baza;
+                        }
+                        while (stiva.Count > 0)
+                            str += CautaCaracter(stiva.Pop()).ToString();
+                        str += ".";
+                        if (nr2 == 0.0M)
+                        {
+                            str += "0";
                         }
                         else
-                        {//intr.o baza mai mare
-
-
-
-
-
-
-
-
-
+                        {
+                            List<int> finalDecResults = new List<int>();
+                            List<decimal> pastValues = new List<decimal>();
+                            bool done = false;
+                            while (nr2 != 0.0M)
+                            {
+                                nr2 = nr2 * baza;
+                                finalDecResults.Add((int)nr2);
+                                pastValues.Add(nr2);
+                                nr2 = nr2 - (int)nr2;
+                                if (pastValues.Count > 1 && pastValues.Contains(nr2))//s-a regasit acelasi deimpartit => exista o perioada
+                                {
+                                    int i = 1, j = 1;
+                                    foreach (decimal past in pastValues)
+                                    {
+                                        if (past == nr2)
+                                            break;
+                                        i++;
+                                    }
+                                    foreach (int result in finalDecResults)
+                                    {
+                                        if (i == j)
+                                            str += "(";
+                                        str += CautaCaracter(result).ToString();
+                                        j++;
+                                    }
+                                    str += ")";
+                                    done = true;
+                                }
+                                if (done == true)
+                                    break;
+                            }
+                            if (!done)
+                                foreach (int result in finalDecResults)
+                                    str += CautaCaracter(result).ToString();
                         }
                     }
                     else
-                        str += nr1.ToString() +"."+nr2.ToString();
+                    {
+                        nr2 += (decimal)((int)nr1 % 10);
+                        nr1 = Math.Floor(nr1 / 10);
+                        str += nr1.ToString() + nr2.ToString();
+                    }
+                    #endregion
                     //REZULTAT 
                     if (esteNegativ == true)
                         Console.Write("-");
