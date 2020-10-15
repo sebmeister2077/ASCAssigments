@@ -20,7 +20,7 @@ namespace MooresLaw
                 if (double.TryParse(consol, out cateOri))
                 {
                     double ani;
-                    ani = 1.5*Math.Log(cateOri,2);
+                    ani = 1.5*Math.Log(cateOri,2.0);
                     Console.WriteLine("Tranzistoarele vor fi mai dense de {0} ori in {1} ani",cateOri,ani);
                     break;
                 }

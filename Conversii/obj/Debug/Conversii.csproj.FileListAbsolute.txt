@@ -1,0 +1,6 @@
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\bin\Debug\Conversii.exe.config
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\bin\Debug\Conversii.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\bin\Debug\Conversii.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\obj\Debug\Conversii.csprojAssemblyReference.cache
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\obj\Debug\Conversii.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\obj\Debug\Conversii.pdb
