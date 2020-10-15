@@ -47,20 +47,32 @@ namespace Conversii
                         foreach (char c in nrintreg)
                         {
                             if (c >= '0' && c <= '9')
-                                nr1 += (int)Math.Pow((int)(c - '0'), bazaprinc * x);
+                                nr1 +=(int)(c-'0')*(int)Math.Pow(bazaprinc, x);
                             else
-                                nr1 += (int)Math.Pow((int)(c - 'A' + 10), bazaprinc * x);
+                                nr1 += (int)(c-'A'+10)*(int)Math.Pow(bazaprinc,  x);
                             x--;
+                            if (x == -1)
+                                break;
+                            
                         }
+                        int auxy = y;
+
+                        Console.WriteLine(y);
                         y = -1;
                         foreach (char c in nrdec)
                         {
+                            if (auxy == 0)
+                                break;
                             if (c >= '0' && c <= '9')
-                                nr2 += (decimal)Math.Pow((int)c - '0', bazaprinc * y);
+                                nr2 += (c-'0')*(decimal)Math.Pow(bazaprinc, y);
                             else
-                                nr2 += (decimal)Math.Pow((int)c - 'A' + 10, bazaprinc * y);
+                                nr2 += (c-'A'+10)*(decimal)Math.Pow(bazaprinc, y);
                             y--;
+                            Console.Write("C={0}", c);
+                            if (y == -1*auxy)
+                                break;
                         }
+                        Console.WriteLine();
                         if(nr2>1)//daca trebuie adaugat unitati la numarul intreg
                         {
                             nr1 += (int)nr2;
@@ -81,14 +93,14 @@ namespace Conversii
                             if (baza > 10)
                                 partea2int = s;
                             else
-                               nr1 = Double.Parse(s);
+                                nr1 = Double.Parse(s);
                             s = "0.";
                             foreach (char c in nrdec)
                                 s += c;
                             if (baza > 10)
                                 partea2dec = s;
                             else
-                            nr2 = Decimal.Parse(s);
+                                nr2 = Decimal.Parse(s);
                         }
                         if (baza < 10)//Intro baza mai mica
                         {
@@ -152,12 +164,12 @@ namespace Conversii
 
 
 
-                             
+
 
                         }
                     }
                     else
-                        str += nr1.ToString()+"."+nr2.ToString();
+                        str += nr1.ToString() +"."+nr2.ToString();
                     //REZULTAT 
                     if (esteNegativ == true)
                         Console.Write("-");

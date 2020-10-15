@@ -4,3 +4,6 @@ C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\bin\Debug\Con
 C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\obj\Debug\Conversii.csprojAssemblyReference.cache
 C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\obj\Debug\Conversii.exe
 C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\obj\Debug\Conversii.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\bin\Debug\MyLibrary.dll
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\bin\Debug\MyLibrary.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Conversii\obj\Debug\Conversii.csproj.CopyComplete
