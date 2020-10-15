@@ -8,6 +8,18 @@ namespace Conversii
 {
     class Program
     {
+        private static bool Contains(decimal[] a,decimal x,int elem)
+        {
+            bool ok=false;
+            for (int i = 1; i <= elem; i++)
+                if (a[i] == x)
+                    if (ok == true)
+                        return true;
+                    else
+                        ok = true;
+            return false;
+        }
+
         private static char CautaCaracter(double x)
         {
             if (x >= 0 && x <= 9)
@@ -55,6 +67,9 @@ namespace Conversii
                         x--;
 
                         #region Conversie IN Baza 10
+
+
+
                         if (bazaprinc != 10)//conversie IN baza 10
                         {
 
@@ -125,40 +140,91 @@ namespace Conversii
                             }
                             else
                             {
-                                List<int> finalDecResults = new List<int>();
-                                List<decimal> pastValues = new List<decimal>();
+                                int[] finalDecResults = new int[100];//Am facut si cu List<decimal> si iteratori dar nu stiam ca la lista daca 2 elemente sunt egale da cv eroare habar nu am ce are dar pune acelasi index
+                                decimal[] pastValues = new decimal[100];
+                                int it1=1, it2=1;
                                 bool done = false;
+                                int howManyLeftUntouched = 0, periodSpace = 0;
+                                decimal primulNr=0;
+                                pastValues[it2++] = nr2;
                                 while (nr2 != 0.0M)
                                 {
+                                    
                                     nr2 = nr2 * baza;
-                                    finalDecResults.Add((int)nr2);
-                                    pastValues.Add(nr2);
+                                    finalDecResults[it1++] = (int)nr2;
                                     nr2 = nr2 - (int)nr2;
-                                    if (pastValues.Count > 2 && pastValues.Contains(nr2))//s-a regasit acelasi deimpartit => exista o perioada
+                                    pastValues[it2++] = nr2;
+                                    
+                                    if (it2 > 1 && Contains(pastValues, nr2, it2 - 1) && primulNr == 0)
                                     {
-                                        int i = 1, j = 1;
-                                        foreach (decimal past in pastValues)
-                                        {
-                                            if (past == nr2)
-                                                break;
-                                            i++;
-                                        }
-                                        foreach (int result in finalDecResults)
-                                        {
-                                            if (i == j)
-                                                str += "(";
-                                            str += CautaCaracter(result).ToString();
-                                            j++;
-                                        }
-                                        str += ")";
-                                        done = true;
+                                        primulNr = nr2;
                                     }
-                                    if (done == true)
-                                        break;
+                                    if (it2 > 14 && Contains(pastValues,nr2,it2-1))//s-a regasit acelasi deimpartit => exista o perioada(ft probabil) nu 100%
+                                    {
+                                        //aflam daca e adv
+                                        int i1=1, i2=1,i3;
+                                        for (; i1 < it2; i1++)
+                                        {
+                                            if (pastValues[i1] == primulNr)
+                                                break;
+                                            howManyLeftUntouched++;
+                                        }
+                                        for (; i2 < it2; i2++)
+                                            if (pastValues[i2] == primulNr&&i2!=i1)
+                                                break;
+                                        if (i2 == 1)
+                                            continue; //continua while-ul
+                                        i3 = i2;
+                                        bool oksaunu = true;
+                                        while(i1!=i3)
+                                        {
+                                            periodSpace++;
+                                            if(pastValues[i1]!=pastValues[i2])
+                                            { oksaunu = false;break; }
+                                            oksaunu = true;
+                                            i1++;
+                                            i2++;
+                                        }
+                                        if (oksaunu == true)
+                                        {
+                                            done = true;
+                                            if (howManyLeftUntouched == 0)
+                                                str += "(";
+                                            for (int i=1;i<it1;i++)
+                                            {
+                                                done = true;
+                                                if (howManyLeftUntouched > 0)
+                                                {
+                                                    str += CautaCaracter(finalDecResults[i]).ToString(); howManyLeftUntouched--;
+                                                    if (howManyLeftUntouched == 0)
+                                                        str += "(";
+                                                }
+                                                else
+                                                {
+                                                    if (periodSpace > 0)
+                                                    {
+                                                        str += CautaCaracter(finalDecResults[i]).ToString();
+                                                        periodSpace--;
+                                                        if (periodSpace == 0)
+                                                        { str += ")"; break; }
+                                                    }
+                                                }
+
+                                            }
+                                            if (done == true)//break while
+                                                break;
+                                        }
+                                        else
+                                            periodSpace = 0;
+                                    } 
                                 }
-                                if (!done)
-                                    foreach (int result in finalDecResults)
-                                        str += CautaCaracter(result).ToString();
+                                if (done == false)//nu exista perioada
+                                {
+                                    for (int i=1;i<it1;i++)
+                                    {
+                                        str += CautaCaracter(finalDecResults[i]).ToString();
+                                    }
+                                }
                             }
                         }
                         else
