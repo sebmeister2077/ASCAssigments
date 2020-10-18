@@ -65,7 +65,7 @@ namespace Conversii
                                 nrdec[y++] = c;
                         }
                         x--;
-
+                        Console.WriteLine();
                         #region Conversie IN Baza 10
 
 
@@ -140,83 +140,93 @@ namespace Conversii
                             }
                             else
                             {
-                                int[] finalDecResults = new int[100];//Am facut si cu List<decimal> si iteratori dar nu stiam ca la lista daca 2 elemente sunt egale da cv eroare habar nu am ce are dar pune acelasi index
-                                decimal[] pastValues = new decimal[100];
+                                int[] finalDecResults = new int[10000];//Am facut si cu List<decimal> si iteratori dar nu stiam ca la lista daca 2 elemente sunt egale da cv eroare habar nu am ce are dar pune acelasi index
+                                decimal[] pastValues = new decimal[10000];
                                 int it1=1, it2=1;
                                 bool done = false;
                                 int howManyLeftUntouched = 0, periodSpace = 0;
                                 decimal primulNr=0;
                                 pastValues[it2++] = nr2;
-                                while (nr2 != 0.0M)
+                                try
                                 {
-                                    
-                                    nr2 = nr2 * baza;
-                                    finalDecResults[it1++] = (int)nr2;
-                                    nr2 = nr2 - (int)nr2;
-                                    pastValues[it2++] = nr2;
-                                    
-                                    if (it2 > 1 && Contains(pastValues, nr2, it2 - 1) && primulNr == 0)
+                                    while (nr2 != 0.0M)
                                     {
-                                        primulNr = nr2;
-                                    }
-                                    if (it2 > 14 && Contains(pastValues,nr2,it2-1))//s-a regasit acelasi deimpartit => exista o perioada(ft probabil) nu 100%
-                                    {
-                                        //aflam daca e adv
-                                        int i1=1, i2=1,i3;
-                                        for (; i1 < it2; i1++)
+
+                                        nr2 = nr2 * baza;
+                                        finalDecResults[it1++] = (int)nr2;
+                                        nr2 = nr2 - (int)nr2;
+                                        pastValues[it2++] = nr2;
+
+                                        if (it2 > 1 && Contains(pastValues, nr2, it2 - 1) && primulNr == 0)
                                         {
-                                            if (pastValues[i1] == primulNr)
-                                                break;
-                                            howManyLeftUntouched++;
+                                            primulNr = nr2;
                                         }
-                                        for (; i2 < it2; i2++)
-                                            if (pastValues[i2] == primulNr&&i2!=i1)
-                                                break;
-                                        if (i2 == 1)
-                                            continue; //continua while-ul
-                                        i3 = i2;
-                                        bool oksaunu = true;
-                                        while(i1!=i3)
+                                        if (it2 > 14 && Contains(pastValues, nr2, it2 - 1))//s-a regasit acelasi deimpartit => exista o perioada(ft probabil) nu 100%
                                         {
-                                            periodSpace++;
-                                            if(pastValues[i1]!=pastValues[i2])
-                                            { oksaunu = false;break; }
-                                            oksaunu = true;
-                                            i1++;
-                                            i2++;
-                                        }
-                                        if (oksaunu == true)
-                                        {
-                                            done = true;
-                                            if (howManyLeftUntouched == 0)
-                                                str += "(";
-                                            for (int i=1;i<it1;i++)
+                                            //aflam daca e adv
+                                            int i1 = 1, i2 = 1, i3;
+                                            for (; i1 < it2; i1++)
+                                            {
+                                                if (pastValues[i1] == primulNr)
+                                                    break;
+                                                howManyLeftUntouched++;
+                                            }
+                                            for (; i2 < it2; i2++)
+                                                if (pastValues[i2] == primulNr && i2 != i1)
+                                                    break;
+                                            if (i2 == 1)
+                                                continue; //continua while-ul
+                                            i3 = i2;
+                                            bool oksaunu = true;
+                                            while (i1 != i3)
+                                            {
+                                                periodSpace++;
+                                                if (pastValues[i1] != pastValues[i2])
+                                                { oksaunu = false; break; }
+                                                oksaunu = true;
+                                                i1++;
+                                                i2++;
+                                            }
+                                            if (oksaunu == true)
                                             {
                                                 done = true;
-                                                if (howManyLeftUntouched > 0)
+                                                if (howManyLeftUntouched == 0)
+                                                    str += "(";
+                                                for (int i = 1; i < it1; i++)
                                                 {
-                                                    str += CautaCaracter(finalDecResults[i]).ToString(); howManyLeftUntouched--;
-                                                    if (howManyLeftUntouched == 0)
-                                                        str += "(";
-                                                }
-                                                else
-                                                {
-                                                    if (periodSpace > 0)
+                                                    done = true;
+                                                    if (howManyLeftUntouched > 0)
                                                     {
-                                                        str += CautaCaracter(finalDecResults[i]).ToString();
-                                                        periodSpace--;
-                                                        if (periodSpace == 0)
-                                                        { str += ")"; break; }
+                                                        str += CautaCaracter(finalDecResults[i]).ToString(); howManyLeftUntouched--;
+                                                        if (howManyLeftUntouched == 0)
+                                                            str += "(";
                                                     }
-                                                }
+                                                    else
+                                                    {
+                                                        if (periodSpace > 0)
+                                                        {
+                                                            str += CautaCaracter(finalDecResults[i]).ToString();
+                                                            periodSpace--;
+                                                            if (periodSpace == 0)
+                                                            { str += ")"; break; }
+                                                        }
+                                                    }
 
+                                                }
+                                                if (done == true)//break while
+                                                    break;
                                             }
-                                            if (done == true)//break while
-                                                break;
+                                            else
+                                                periodSpace = 0;
                                         }
-                                        else
-                                            periodSpace = 0;
-                                    } 
+                                    }
+                                }
+                                catch
+                                {
+                                    //virgula e irationala sau are perioada foarte foarte foarte mare (<10 mii de cifre in perioada)
+                                    Console.WriteLine("!!Virgula este irational!!");
+                                    Console.Write("~=");
+                                    it1 = 17;
                                 }
                                 if (done == false)//nu exista perioada
                                 {
@@ -234,7 +244,6 @@ namespace Conversii
                             str += nr1.ToString() + nr2.ToString();
                         }
                         #endregion
-                        Console.WriteLine();
                         //REZULTAT 
                         if (esteNegativ == true)
                             Console.Write("-");
