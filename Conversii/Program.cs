@@ -8,6 +8,16 @@ namespace Conversii
 {
     class Program
     {
+        public static decimal PutereNegativa(int x,int y)
+        {
+            decimal total = 1.0M;
+            while(y<0)
+            {
+                total =total/ x;
+                y++;
+            }
+            return total;
+        }
         private static bool Contains(decimal[] a,decimal x,int elem)
         {
             bool ok=false;
@@ -17,6 +27,19 @@ namespace Conversii
                         return true;
                     else
                         ok = true;
+            return false;
+        }
+        private static bool Contains(char[] a, char x, int elem)
+        {
+            bool ok = false;
+            for (int i=0;i<elem;i++)
+            {
+                if (a[i] == x)
+                    if (ok == true)
+                        return true;
+                    else
+                        ok = true;
+            }
             return false;
         }
 
@@ -49,10 +72,12 @@ namespace Conversii
                     Console.WriteLine("Introduceti baza de convertire");
                     if (int.TryParse(Console.ReadLine(), out baza) && baza >= 2 && baza <= 256)
                     {
+                        bool problemaIntalnita = false;
                         double nr1 = 0;
                         decimal nr2 = 0;
                         bool stg = true;
                         int x = 0, y = 0;
+                        string str = "";
                         foreach (char c in numar)
                         {
                             if (c == '.')
@@ -66,9 +91,10 @@ namespace Conversii
                         }
                         x--;
                         Console.WriteLine();
+
                         #region Conversie IN Baza 10
 
-
+                        string inCaseOfProb = "";
 
                         if (bazaprinc != 10)//conversie IN baza 10
                         {
@@ -82,7 +108,6 @@ namespace Conversii
                                 x--;
                                 if (x == -1)
                                     break;
-
                             }
                             int auxy = y;
                             y = -1;
@@ -91,24 +116,95 @@ namespace Conversii
                                 if (auxy == 0)
                                     break;
                                 if (c >= '0' && c <= '9')
-                                    nr2 += (c - '0') * (decimal)Math.Pow(bazaprinc, y);
+                                    nr2 += (c - '0') * PutereNegativa(bazaprinc, y);
                                 else
-                                    nr2 += (c - 'A' + 10) * (decimal)Math.Pow(bazaprinc, y);
+                                    nr2 += (c - 'A' + 10) * PutereNegativa(bazaprinc, y);
                                 if (y == -auxy)
                                     break;
                                 y--;
                             }
-                            if (nr2 > 1)//daca trebuie adaugat unitati la numarul intreg
+                            if (nr2 >= 1)//daca trebuie adaugat unitati la numarul intreg
                             {
                                 nr1 += (int)nr2;
                                 nr2 -= (int)nr2;//se va sterge partea intreaga chiar daca nu ar conta asta
+                            }
+                            if(bazaprinc%2!=0||bazaprinc%5!=0)//  1/bazaprinc o sa fie perioada
+                            {
+                                if(baza!=10)
+                                {
+                                    Console.WriteLine("Atentie!Convertirea nu este exacta deoarece baza intermediara are o perioada(sau e irationala) dupa virgula.");
+                                }
+                                else
+                                {   //rezolv problema pentru ca pot sa afisez numarul cu perioada sa (string)
+                                    problemaIntalnita = true;
+                                    bool primul = true;
+                                    char[] formareDec = new char[30];//va contine doar cifrele
+                                    int cateAre = 0;
+                                    foreach(char c in nr2.ToString())
+                                    {
+                                        if(primul==true)
+                                        { primul = false;continue; }
+                                        if (c == '.')
+                                            continue;
+                                        formareDec[cateAre++] = c;
+                                    }
+                                    int howManyLeftUntouched = 0, PeriodSpace = 0;
+                                    bool ok=false;
+                                    for(int i=0;i<cateAre;i++)
+                                    {
+                                        if(Contains(formareDec,formareDec[i],i))
+                                        {
+                                            int i1=0, i2=i;
+                                            bool eBine = true;
+                                            while (formareDec[i1] != formareDec[i])
+                                            { i1++;howManyLeftUntouched++; }
+                                            while(i1<i)
+                                            {
+                                                PeriodSpace++;
+                                                i1++;
+                                                i2++;
+                                                if (formareDec[i1] != formareDec[i2])
+                                                { eBine = false;break; }
+                                            }
+                                            if (eBine == true)
+                                            { ok = true; break; }
+                                            else
+                                            {
+                                                howManyLeftUntouched = 0; PeriodSpace = 0;
+                                            }
+
+                                        }
+                                    }
+
+                                    if (ok==false)//daa in primele 27 de cifre nu exista vreo perioada
+                                    {
+                                        Console.WriteLine("Prima convertire da numar irational(sau perioada mai mare de 15 de cifre).");
+                                    }
+                                    else
+                                    {
+                                        int i = 0;
+                                        while(howManyLeftUntouched>0)
+                                        {
+                                            inCaseOfProb += formareDec[i++];
+                                            howManyLeftUntouched--;
+                                        }
+                                        inCaseOfProb += "(";
+                                        while(PeriodSpace>0)
+                                        {
+                                            inCaseOfProb += formareDec[i++];
+                                            PeriodSpace--;
+                                        }
+                                        inCaseOfProb += ")";
+
+                                    }
+                                }
                             }
                         }
                         #endregion
 
 
                         //Conversie DIN baza 10
-                        string str = "";
+                        
                         #region Conversie DIN Baza 10
                         if (baza != 10)
                         {
@@ -140,8 +236,8 @@ namespace Conversii
                             }
                             else
                             {
-                                int[] finalDecResults = new int[10000];//Am facut si cu List<decimal> si iteratori dar nu stiam ca la lista daca 2 elemente sunt egale da cv eroare habar nu am ce are dar pune acelasi index
-                                decimal[] pastValues = new decimal[10000];
+                                int[] finalDecResults = new int[20000];//Am facut si cu List<decimal> si iteratori dar nu stiam ca la lista daca 2 elemente sunt egale da cv eroare habar nu am ce are dar pune acelasi index
+                                decimal[] pastValues = new decimal[20000];
                                 int it1=1, it2=1;
                                 bool done = false;
                                 int howManyLeftUntouched = 0, periodSpace = 0;
@@ -220,6 +316,7 @@ namespace Conversii
                                                 periodSpace = 0;
                                         }
                                     }
+
                                 }
                                 catch
                                 {
@@ -239,12 +336,19 @@ namespace Conversii
                         }
                         else
                         {
-                            nr2 += (decimal)((int)nr1 % 10);
-                            nr1 = Math.Floor(nr1 / 10);
-                            if (nr1 > 0)
-                                str += nr1.ToString() + nr2.ToString();
+                            if (problemaIntalnita == false)
+                            {
+                                nr2 += (decimal)((int)nr1 % 10);
+                                nr1 = Math.Floor(nr1 / 10);
+                                if (nr1 > 0)
+                                    str += nr1.ToString() + nr2.ToString();
+                                else
+                                    str += nr2.ToString();
+                            }
                             else
-                                str += nr2.ToString();
+                            {
+                                str += nr1.ToString() + "."+inCaseOfProb;
+                            }
                         }
                         #endregion
                         //REZULTAT 
