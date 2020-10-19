@@ -241,7 +241,10 @@ namespace Conversii
                         {
                             nr2 += (decimal)((int)nr1 % 10);
                             nr1 = Math.Floor(nr1 / 10);
-                            str += nr1.ToString() + nr2.ToString();
+                            if (nr1 > 0)
+                                str += nr1.ToString() + nr2.ToString();
+                            else
+                                str += nr2.ToString();
                         }
                         #endregion
                         //REZULTAT 
