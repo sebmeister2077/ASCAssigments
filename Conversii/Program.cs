@@ -128,7 +128,7 @@ namespace Conversii
                                 nr1 += (int)nr2;
                                 nr2 -= (int)nr2;//se va sterge partea intreaga chiar daca nu ar conta asta
                             }
-                            if(bazaprinc%2!=0||bazaprinc%5!=0)//  1/bazaprinc o sa fie perioada
+                            if(bazaprinc%2!=0&&bazaprinc%5!=0)//  1/bazaprinc o sa fie perioada
                             {
                                 if(baza!=10)
                                 {
@@ -178,6 +178,8 @@ namespace Conversii
 
                                     if (ok==false)//daa in primele 27 de cifre nu exista vreo perioada
                                     {
+                                        for (int i = 0; i < cateAre; i++)
+                                            inCaseOfProb += formareDec[i];
                                         Console.WriteLine("Prima convertire da numar irational(sau perioada mai mare de 15 de cifre).");
                                     }
                                     else
