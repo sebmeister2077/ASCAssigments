@@ -32,7 +32,7 @@ namespace Conversii
         private static bool Contains(char[] a, char x, int elem)
         {
             bool ok = false;
-            for (int i=0;i<elem;i++)
+            for (int i=0;i<=elem;i++)
             {
                 if (a[i] == x)
                     if (ok == true)
@@ -259,7 +259,7 @@ namespace Conversii
                                         {
                                             primulNr = nr2;
                                         }
-                                        if (it2 > 14 && Contains(pastValues, nr2, it2 - 1))//s-a regasit acelasi deimpartit => exista o perioada(ft probabil) nu 100%
+                                        if (it2 > 14 && Contains(pastValues, nr2, it2 - 1))//s-a regasit acelasi deimpartit => exista o perioada(ft probabil) nu 100% perioada corecta
                                         {
                                             //aflam daca e adv
                                             int i1 = 1, i2 = 1, i3;
