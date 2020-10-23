@@ -8,6 +8,20 @@ namespace Conversii
 {
     class Program
     {
+        private static bool VerificareProblema(int i)
+        {
+            while(i>1)
+            {
+                if (i % 2 == 0)
+                    i /= 2;
+                else
+                    if (i % 5 == 0)
+                    i /= 5;
+                else
+                    return true;
+            }
+            return false;
+        }
         public static decimal PutereNegativa(int x,int y)
         {
             decimal total = 1.0M;
@@ -94,7 +108,7 @@ namespace Conversii
 
                         #region Conversie IN Baza 10
 
-                        string inCaseOfProb = "";
+                        string inCaseOfProb = "";//in caz ca baza nu se divide doar la 2 si 5
 
                         if (bazaprinc != 10)//conversie IN baza 10
                         {
@@ -116,7 +130,7 @@ namespace Conversii
                                 if (auxy == 0)
                                     break;
                                 if (c >= '0' && c <= '9')
-                                    nr2 += (c - '0') * PutereNegativa(bazaprinc, y);
+                                    nr2 += (c - '0') * PutereNegativa(bazaprinc, y);//folosesc o functie proprie deoarece Math.Pow poate returna doar double(sau int)
                                 else
                                     nr2 += (c - 'A' + 10) * PutereNegativa(bazaprinc, y);
                                 if (y == -auxy)
@@ -126,9 +140,10 @@ namespace Conversii
                             if (nr2 >= 1)//daca trebuie adaugat unitati la numarul intreg
                             {
                                 nr1 += (int)nr2;
-                                nr2 -= (int)nr2;//se va sterge partea intreaga chiar daca nu ar conta asta
+                                nr2 -= (int)nr2;//se va sterge partea intreaga
                             }
-                            if(bazaprinc%2!=0&&bazaprinc%5!=0)//  1/bazaprinc o sa fie perioada
+                            //Pana aici am convertit parrtea intreaga
+                            if(VerificareProblema(bazaprinc))//  1/bazaprinc o sa fie perioada
                             {
                                 if(baza!=10)
                                 {
@@ -155,7 +170,7 @@ namespace Conversii
                                         if(Contains(formareDec,formareDec[i],i))
                                         {
                                             int i1=0, i2=i;
-                                            bool eBine = true;
+                                            bool eBine = true;//presupunem ca e o perioaada corecta
                                             while (formareDec[i1] != formareDec[i])
                                             { i1++;howManyLeftUntouched++; }
                                             while(i1<i)
@@ -204,6 +219,7 @@ namespace Conversii
                         }
                         #endregion
 
+                        //TODO sa rezolve problema perioadei 0.(70706060) si sa treaca mai departe in functie de HowManyLeftUntouched si periodSpace +de cautat un exemplu ce ar da un asa output
 
                         //Conversie DIN baza 10
                         
@@ -232,7 +248,7 @@ namespace Conversii
                             while (stiva.Count > 0)
                                 str += CautaCaracter(stiva.Pop()).ToString();
                             str += ".";
-                            if (nr2 == 0.0M)
+                            if (nr2 == 0.0M)//pana aici s-a convertiti doar partea intreaga
                             {
                                 str += "0";
                             }
@@ -323,7 +339,7 @@ namespace Conversii
                                 catch
                                 {
                                     //virgula e irationala sau are perioada foarte foarte foarte mare (<10 mii de cifre in perioada)
-                                    Console.WriteLine("!!Virgula este irational!!");
+                                    Console.WriteLine("!!Virgula este irational!!(Nu s-a detectat nicio perioada in primele 20 mii de zecimale)");
                                     Console.Write("~=");
                                     it1 = 17;
                                 }
