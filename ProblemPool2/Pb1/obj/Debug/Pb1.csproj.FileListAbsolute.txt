@@ -1,0 +1,6 @@
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool2\Pb1\bin\Debug\Pb1.exe.config
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool2\Pb1\bin\Debug\Pb1.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool2\Pb1\bin\Debug\Pb1.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool2\Pb1\obj\Debug\Pb1.csprojAssemblyReference.cache
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool2\Pb1\obj\Debug\Pb1.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool2\Pb1\obj\Debug\Pb1.pdb
