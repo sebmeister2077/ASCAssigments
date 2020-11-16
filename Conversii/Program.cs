@@ -265,7 +265,6 @@ namespace Conversii
                                 {
                                     while (nr2 != 0.0M)
                                     {
-
                                         nr2 = nr2 * baza;
                                         finalDecResults[it1++] = (int)nr2;
                                         nr2 = nr2 - (int)nr2;

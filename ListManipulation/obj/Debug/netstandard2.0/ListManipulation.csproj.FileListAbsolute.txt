@@ -1,0 +1,8 @@
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ListManipulation\bin\Debug\netstandard2.0\ListManipulation.deps.json
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ListManipulation\bin\Debug\netstandard2.0\ListManipulation.dll
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ListManipulation\bin\Debug\netstandard2.0\ListManipulation.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ListManipulation\obj\Debug\netstandard2.0\ListManipulation.csprojAssemblyReference.cache
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ListManipulation\obj\Debug\netstandard2.0\ListManipulation.AssemblyInfoInputs.cache
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ListManipulation\obj\Debug\netstandard2.0\ListManipulation.AssemblyInfo.cs
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ListManipulation\obj\Debug\netstandard2.0\ListManipulation.dll
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ListManipulation\obj\Debug\netstandard2.0\ListManipulation.pdb

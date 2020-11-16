@@ -1,0 +1,9 @@
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Automat de vanzari\bin\Debug\Automat de vanzari.exe.config
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Automat de vanzari\bin\Debug\Automat de vanzari.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Automat de vanzari\bin\Debug\Automat de vanzari.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Automat de vanzari\bin\Debug\ListManipulation.dll
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Automat de vanzari\bin\Debug\ListManipulation.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Automat de vanzari\obj\Debug\Automat de vanzari.csprojAssemblyReference.cache
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Automat de vanzari\obj\Debug\Automat de vanzari.csproj.CopyComplete
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Automat de vanzari\obj\Debug\Automat de vanzari.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\Automat de vanzari\obj\Debug\Automat de vanzari.pdb
