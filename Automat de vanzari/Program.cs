@@ -105,8 +105,8 @@ namespace Automat_de_vanzari
                     sleepsomemore = true;
                 }
                 if(sleepsomemore)
-                    System.Threading.Thread.Sleep(1000);
-                System.Threading.Thread.Sleep(800);
+                    System.Threading.Thread.Sleep(1400);
+                System.Threading.Thread.Sleep(300);
             }
         }
     }

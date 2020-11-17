@@ -11,7 +11,7 @@ namespace ListManipulation
         private void Sleep()
         {
             //sleep some more after error message so that user has time to read
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(1400);
         }
         private int CateCifreInt(float nr)
         {
@@ -43,7 +43,7 @@ namespace ListManipulation
             lista = new Dictionary<string, float>();
             coinsAndBills = new List<float>();
             //added default products
-            lista.Add("CandyBar", 0.80f);
+            lista.Add("CandyBar", 0.50f);
             lista.Add("Snack", 1.6f);
             lista.Add("PackedSandwich", 14.99f);
             lista.Add("SodaCan", 20f);
@@ -182,6 +182,9 @@ namespace ListManipulation
                 }
                 Console.WriteLine($"x  {item}");
             }
+            Console.WriteLine();
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
         }
         public bool DoesThisCoinOrBillExist(float nr)
         {
@@ -203,6 +206,7 @@ namespace ListManipulation
                         {
                             Console.WriteLine($"You bought a {item.Key}");
                             money -= item.Value;
+                            break;
                         }
                     }
                     code--;
