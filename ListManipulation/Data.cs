@@ -3,17 +3,38 @@ using System.Collections.Generic;
 
 namespace ListManipulation
 {
-    public class Operations
+    
+    public static class Operations
     {
-        private Dictionary<string, float> lista; 
-        private static List<float> coinsAndBills;
+        private class Product
+        {
+            internal string productName;
+            internal float productPrice;
+            public Product(string pname, float pprice)
+            {
+                productName = pname;
+                productPrice = pprice;
+            }
+        }
+        private class Vault
+        {
+            internal float coinorbill;
+            internal uint amount;
+            public Vault(float cob, uint _amount)
+            {
+                coinorbill = cob;
+                amount = _amount;
+            }
+        }
+        private static List<Product> lista=new List<Product>();
+        private static  List<Vault> coinsAndBills=new List<Vault>();
 
-        private void Sleep()
+        private static void Sleep()
         {
             //sleep some more after error message so that user has time to read
             System.Threading.Thread.Sleep(1400);
         }
-        private int CateCifreInt(float nr)
+        private static int CateCifreInt(float nr)
         {
             if (nr <10)
                 return 1;
@@ -25,7 +46,7 @@ namespace ListManipulation
             }
             return x;
         }
-        private int CateCifreZec(float nr)
+        private static int CateCifreZec(float nr)
         {
             int x = 0;
             bool trecutdevirgula = false;
@@ -38,26 +59,8 @@ namespace ListManipulation
                 trecutdevirgula = true;
             return x+1;//si virgula ocupa loc pe ecran
         }
-        public Operations()
-        {
-            lista = new Dictionary<string, float>();
-            coinsAndBills = new List<float>();
-            //added default products
-            lista.Add("CandyBar", 0.50f);
-            lista.Add("Snack", 1.6f);
-            lista.Add("PackedSandwich", 14.99f);
-            lista.Add("SodaCan", 20f);
-            lista.Add("Popsicle", 1.05f);
-            //added default coins
-            coinsAndBills.Add(10f);
-            coinsAndBills.Add(5f);
-            coinsAndBills.Add(1f);
-            coinsAndBills.Add(0.5f);
-            coinsAndBills.Add(0.1f);
-            coinsAndBills.Add(0.05f);
-            coinsAndBills.Add(0.01f);
-        }
-        public void ShowProducts()
+        
+        public static void ShowProducts()
         {
             if(lista.Count>0)
             Console.WriteLine("Current products available:");
@@ -66,110 +69,135 @@ namespace ListManipulation
             int i = 1;
             foreach (var product in lista)
             {
-                Console.Write($"{product.Value}");
-                for (int j=1;j<8-(CateCifreInt(product.Value)+CateCifreZec(product.Value));j++)
+                if (product.productPrice == 0)
+                Console.Write("Free");
+                else
+                Console.Write($"{product.productPrice}");
+                if (product.productPrice == 0)
+                    Console.Write("  ");
+                else
+                for (int j=1;j<8-(CateCifreInt(product.productPrice)+CateCifreZec(product.productPrice));j++)
                     Console.Write(" ");
-                if((int)product.Value==product.Value)
+                if((int)product.productPrice==product.productPrice)
                     Console.Write(" ");
                 /*if (product.Value < 1) //in caz ca vreti sa scrieti in romana cu lei si bani
                     Console.Write("Coins");
                 else
                     Console.Write("Bills");
                     */
-                Console.Write($"$        {product.Key} ");
-                for (int j = 1; j < 25 - product.Key.Length; j++)
+                Console.Write($"$        {product.productName} ");
+                for (int j = 1; j < 25 - product.productName.Length; j++)
                     Console.Write(" ");
                 Console.WriteLine($"  Code:{i++}");
             }
             Console.WriteLine();
         }
-        public void ShowCoinsAndBills()
+        public static void MoneyInserted(float value)
+        {
+            coinsAndBills.Find(x => x.coinorbill == value).amount++;
+        }
+        public static void ShowCoinsAndBills()
         {
             Console.WriteLine("Acceptable money input:");
             foreach (var cob in coinsAndBills)
             {
-                Console.Write(cob);
-                for (int j = 1; j < 8 - (CateCifreInt(cob) + CateCifreZec(cob)); j++)
+                Console.Write(cob.coinorbill);
+                for (int j = 1; j < 8 - (CateCifreInt(cob.coinorbill) + CateCifreZec(cob.coinorbill)); j++)
                     Console.Write(" ");
-                if ((int)cob == cob)
+                if ((int)cob.coinorbill == cob.coinorbill)
                     Console.Write(" ");
-                if (cob < 1)
-                    Console.WriteLine("Coin");
+                if (cob.coinorbill < 1)
+                    Console.Write("Coin");
                 else
-                    Console.WriteLine("Bill");
+                    Console.Write("Bill");
+                Console.WriteLine($"  \tAmount In Vault: {cob.amount}");
             }
             Console.WriteLine();
         }
-        public void AddProduct(string productName,float price)
+        public static void AddProduct(string productName,float price)
         {
-            if (lista.ContainsKey(productName))
+            if (lista.Exists(x=>x.productName==productName))
             { Console.WriteLine("This PRODUCT ALREADY EXISTS!It must be deleted or modified by pressing D or M."); Sleep(); }
             else
             {
-                lista.Add(productName, price);
+                lista.Add(new Product(productName, price));
             }
         }
-        public void ModifyProduct(string productName)
+        public static void ModifyProduct(string productName)
         {
-            if(!lista.ContainsKey(productName))
+            if(!lista.Exists(x=>x.productName==productName))
             { Console.WriteLine("THIS PRODUCT DOESN'T EXIST!It must be added first by pressing A."); Sleep(); }
             else
             {
                 float newprice;
                 Console.WriteLine("Set new price:");
-                if(!float.TryParse(Console.ReadLine(),out newprice))
+                if(!float.TryParse(Console.ReadLine(),out newprice)||newprice<=0)
                 { Console.WriteLine("Invalid number inputed."); Sleep(); }
                 else
                 {
                     newprice = newprice * 100;
                     newprice = (int)newprice;//se sterg toate zecimalele in plus
                     newprice = newprice / 100;
-                    lista.Remove(productName);
-                    lista.Add(productName, newprice);
+                    lista.Remove(lista.Find(x=>x.productName==productName));
+                    lista.Add(new Product(productName, newprice));
                 }
             }
         }
-        public void DeleteProduct(string productName)
+        public static void DeleteProduct(string productName)
         {
-            if (!lista.ContainsKey(productName))
+            if (!lista.Exists(x=>x.productName==productName))
             { Console.WriteLine("THIS PRODUCT DOES NOT EXIST!");Sleep(); }
             else
-                lista.Remove(productName);
+                lista.Remove(lista.Find(x=>x.productName==productName));
         }
-        public void AddCoinOrBill(float bill)
+        public static void AddCoinOrBill(float bill,bool userinputted=true)
         {
-            if (coinsAndBills.Contains(bill))
+            if (coinsAndBills.Exists(x=>x.coinorbill==bill))
             { Console.WriteLine("This coin/bill already exists."); Sleep(); }
             else
                 if (bill >= 1 && bill != (int)bill)//nu exista bancnota de 4.99 lei sau 4.55 lei in afara daca clientul asa vrea el sa fie posibil
             { Console.WriteLine("Input a single monetary unit type:bill(an integer>=1) / coin(float<1)"); Sleep(); }
             else
             {
-                coinsAndBills.Add(bill);
-                coinsAndBills.Sort();
-                coinsAndBills.Reverse();//cea mai mare bancnota/moneda sa fie prima
+                
+                uint amount=1;
+                if(userinputted)
+                Console.WriteLine("Input amount:");
+                if (userinputted==true&&!uint.TryParse(Console.ReadLine(), out amount))
+                { Console.WriteLine("Invalid amount."); Sleep(); }
+                else
+                {
+                    coinsAndBills.Add(new Vault(bill, amount));
+                    coinsAndBills.Sort(delegate(Vault x,Vault y)
+                    {
+                        return x.coinorbill.CompareTo(y.coinorbill);
+
+                    });
+                    coinsAndBills.Reverse();//cea mai mare bancnota/moneda sa fie prima
+                }
             }
         }
-        public void DeleteCoinOrBill(float nr)
+        public static void DeleteCoinOrBill(float nr)
         {
             nr = nr * 100;
             nr = (int)nr;
             nr = nr / 100;
-            if(coinsAndBills.Contains(nr))
-            coinsAndBills.Remove(nr);
+            if(coinsAndBills.Exists(x=>x.coinorbill==nr))
+            coinsAndBills.Remove(coinsAndBills.Find(x=>x.coinorbill==nr));
             else
             { Console.WriteLine("Can't be removed as it is non-existent."); Sleep(); }
         }
-        public void RetractMoney(float money)
+        public static void RetractMoney(float money)
         {
             Console.WriteLine();
             Console.WriteLine("Your Change:");
             foreach(var item in coinsAndBills)
             {
                 int x = 0;
-                while(money>=item)
+                while(money>=item.coinorbill&&item.amount>0)
                 {
-                    money -= item;
+                    money -= item.coinorbill;
+                    item.amount--;
                     x++;
                 }
                 if (x == 0)
@@ -180,17 +208,19 @@ namespace ListManipulation
                     Console.Write(" ");
                     x *= 10;
                 }
-                Console.WriteLine($"x  {item}");
+                Console.WriteLine($"x  {item.coinorbill}");
             }
+            if(money>0)
+            Console.WriteLine("Please notify the owner that the vault needs refilling.");
             Console.WriteLine();
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
         }
-        public bool DoesThisCoinOrBillExist(float nr)
+        public static bool DoesThisCoinOrBillExist(float nr)
         {
-            return coinsAndBills.Contains(nr);
+            return coinsAndBills.Exists(x=>x.coinorbill==nr);
         }
-        public void BuyProductByCode(int code,ref float money)
+        public static void BuyProductByCode(int code,ref float money)
         {
             if(code>lista.Count||code<=0)
             { Console.WriteLine("Invalid Product Code.");Sleep(); }
@@ -200,12 +230,16 @@ namespace ListManipulation
                 {
                     if(code==1)
                     {
-                        if (money < item.Value)
+                        if (money < item.productPrice)
                         { Console.WriteLine("You need to insert more  money"); Sleep(); }
                         else
                         {
-                            Console.WriteLine($"You bought a {item.Key}");
-                            money -= item.Value;
+                            Console.WriteLine($"You bought a {item.productName}");
+                            money -= item.productPrice;
+                            //nu stiu de ce dar aparent daca scazi 5-3.89 iti da 1.109999
+                            money *= 100;
+                            money = (float)Math.Ceiling((decimal)money);
+                            money /= 100;
                             break;
                         }
                     }
