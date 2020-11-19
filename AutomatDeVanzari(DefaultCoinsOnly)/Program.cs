@@ -11,7 +11,7 @@ namespace AutomatDeVanzari_DefaultCoinsOnly_
         static void Main(string[] args)
         {
             float money = 0;
-            void PurchaseAndGetSomeChange(bool b1,bool b2=false,bool b3=false)
+            void PurchaseAndGetSomeChange(bool b1,bool b2,bool b3)
             {
                 Console.WriteLine("Item purchased.\n");
                 money -= 0.2f;
@@ -56,7 +56,7 @@ namespace AutomatDeVanzari_DefaultCoinsOnly_
                 if (continue_)
                     continue;
                 if (money >= 0.2f)
-                    PurchaseAndGetSomeChange(true,money-0.2f>=0.1f,money-0.2f-0.1>=0.05f);
+                    PurchaseAndGetSomeChange(true, money - 0.2f >= 0.1f, money - 0.2f - 0.1f >= 0.05f?true:money-0.2f>=0.5f);
                 Sleep();
                 Console.Clear();
             }

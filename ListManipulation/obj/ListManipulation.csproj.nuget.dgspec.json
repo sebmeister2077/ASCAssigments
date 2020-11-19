@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sebas\\source\\repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\ListManipulation.csproj": {}
+    "C:\\Users\\Sebas\\Source\\Repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\ListManipulation.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sebas\\source\\repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\ListManipulation.csproj": {
+    "C:\\Users\\Sebas\\Source\\Repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\ListManipulation.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sebas\\source\\repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\ListManipulation.csproj",
+        "projectUniqueName": "C:\\Users\\Sebas\\Source\\Repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\ListManipulation.csproj",
         "projectName": "ListManipulation",
-        "projectPath": "C:\\Users\\Sebas\\source\\repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\ListManipulation.csproj",
+        "projectPath": "C:\\Users\\Sebas\\Source\\Repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\ListManipulation.csproj",
         "packagesPath": "C:\\Users\\Sebas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sebas\\source\\repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\obj\\",
+        "outputPath": "C:\\Users\\Sebas\\Source\\Repos\\sebmeister2077\\ASCAssigments\\ListManipulation\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Sebas\\AppData\\Roaming\\NuGet\\NuGet.Config",
