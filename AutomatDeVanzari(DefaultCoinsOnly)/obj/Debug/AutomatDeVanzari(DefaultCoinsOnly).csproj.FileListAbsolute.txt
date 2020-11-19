@@ -1,0 +1,6 @@
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\AutomatDeVanzari(DefaultCoinsOnly)\bin\Debug\AutomatDeVanzari(DefaultCoinsOnly).exe.config
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\AutomatDeVanzari(DefaultCoinsOnly)\bin\Debug\AutomatDeVanzari(DefaultCoinsOnly).exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\AutomatDeVanzari(DefaultCoinsOnly)\bin\Debug\AutomatDeVanzari(DefaultCoinsOnly).pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\AutomatDeVanzari(DefaultCoinsOnly)\obj\Debug\AutomatDeVanzari(DefaultCoinsOnly).csprojAssemblyReference.cache
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\AutomatDeVanzari(DefaultCoinsOnly)\obj\Debug\AutomatDeVanzari(DefaultCoinsOnly).exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\AutomatDeVanzari(DefaultCoinsOnly)\obj\Debug\AutomatDeVanzari(DefaultCoinsOnly).pdb
