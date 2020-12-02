@@ -254,16 +254,16 @@ namespace BigNumbers
             }
             if (x != -1)
                 str.Push(x);
-            int rest=0;
+            double rest=0;
             while(str.Count>0)
             {
-                int cifra;
+                double cifra;
                 rest = rest * 100 + str.Pop();
                 cifra = RadicalPatratFct(rest.ToString(),strfin);
                 if (strfin == "")
                     rest = rest - cifra * cifra;
                 else
-                rest = rest -((int.Parse(strfin)*2*10+cifra)*cifra);
+                rest = rest -((double.Parse(strfin)*2*10+cifra)*cifra);
                 strfin += cifra.ToString();
             }
             return strfin;
