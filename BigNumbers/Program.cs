@@ -145,9 +145,60 @@ namespace BigNumbers
         }
         #endregion
         #region Impartire
+        static string ImpartireFct1(string[] strr,int lungime, int index=0)
+        {
+            string str="";
+            for (int i = index; i < index + lungime; i++)
+                str += strr[i];
+            return str;
+        }
+        static string ImpartireFct2(string str)//sterge primul element(se foloseste daca acesta este 0)
+        {
+            bool sari = true;
+            string st = "";
+            foreach (char c in str)
+            {
+                if(sari)
+                {
+                    sari=false;
+                    continue;
+                }
+                st += c.ToString(); 
+            }
+            return st;
+        }
         static string Impartire(string str1, string str2)
         {
-            return "";
+            if (str1.Length < str2.Length)
+                return "0";
+            if (str1.Length == str2.Length && str2.CompareTo(str1) == 1)
+                return "0";
+            if (str2 == "0")
+                return double.PositiveInfinity.ToString();
+            string[] strr1 = new string[str1.Length];
+            int i = 0,decateori;
+            foreach (char c in str1)
+                strr1[i++] = c.ToString();
+            string strPartial,strfin="";
+            strPartial = ImpartireFct1(strr1, str2.Length);
+            for( i=str2.Length;i<=strr1.Length;i++)
+            {
+                decateori = 0;
+                while(strPartial.CompareTo(str2) >=0||strPartial.Length>str2.Length)
+                {
+                    strPartial = Scadere(strPartial, str2);
+                    decateori++;
+                    while (strPartial.CompareTo("1") == -1 && strPartial != "")
+                        strPartial = ImpartireFct2(strPartial);
+                }
+                while (strPartial.CompareTo("1") == -1&&strPartial!="")
+                    strPartial = ImpartireFct2(strPartial);
+                if(strfin!=""||decateori!=0)
+                strfin += decateori.ToString();
+                if(i< strr1.Length)
+                strPartial += strr1[i];
+            }
+            return strfin;
         }
         #endregion
         #region Putere
