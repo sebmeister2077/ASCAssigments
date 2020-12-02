@@ -1,6 +1,0 @@
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb15\obj\Debug\Pb15.csprojAssemblyReference.cache
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb15\bin\Debug\Pb15.exe.config
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb15\bin\Debug\Pb15.exe
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb15\bin\Debug\Pb15.pdb
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb15\obj\Debug\Pb15.exe
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb15\obj\Debug\Pb15.pdb

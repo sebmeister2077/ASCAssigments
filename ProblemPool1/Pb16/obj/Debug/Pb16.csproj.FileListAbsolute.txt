@@ -1,5 +1,0 @@
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb16\bin\Debug\Pb16.exe.config
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb16\bin\Debug\Pb16.exe
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb16\bin\Debug\Pb16.pdb
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb16\obj\Debug\Pb16.exe
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb16\obj\Debug\Pb16.pdb

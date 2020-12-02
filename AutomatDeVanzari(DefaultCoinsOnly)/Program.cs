@@ -10,19 +10,22 @@ namespace AutomatDeVanzari_DefaultCoinsOnly_
     {
         static void Main(string[] args)
         {
-            float money = 0;
-            void PurchaseAndGetSomeChange(bool b1,bool b2,bool b3)
+            decimal money = 0;
+            void PurchaseAndGetSomeChangeTermsAndConditionsMayApply(bool b1,bool b2,bool b3)
             {
-                Console.WriteLine("Item purchased.\n");
-                money -= 0.2f;
-                Console.Write("Coins returned:");
-                if (b2==false&&b3==false)
-                    Console.WriteLine("None.");
-                if (b2 == true)
-                { Console.Write("Dime"); money -= 0.1f; }
-                if (b3 == true)
-                { Console.WriteLine(" Nickel"); money -= 0.05f; }
-                Sleep(400);
+                if (b1 == true)
+                {
+                    Console.WriteLine("Item purchased.\n");
+                    money -= 0.2m;
+                    Console.Write("Coins returned:");
+                    if (b2 == false && b3 == false)
+                        Console.WriteLine("None.");
+                    if (b2 == true)
+                    { Console.Write("Dime"); money -= 0.1m; }
+                    if (b3 == true)
+                    { Console.WriteLine(" Nickel"); money -= 0.05m; }
+                    Sleep(400);
+                }
             }
             void Sleep(int value=0)
             {
@@ -39,13 +42,13 @@ namespace AutomatDeVanzari_DefaultCoinsOnly_
                 switch(c)
                 {
                     case "N":
-                        money += 0.05f;
+                        money += 0.05m;
                         break;
                     case "D":
-                        money += 0.1f;
+                        money += 0.1m;
                         break;
                     case "Q":
-                        money += 0.25f;
+                        money += 0.25m;
                         break;
                     default:
                         Console.WriteLine("Introduceti o moneda valida");
@@ -55,8 +58,7 @@ namespace AutomatDeVanzari_DefaultCoinsOnly_
                 }
                 if (continue_)
                     continue;
-                if (money >= 0.2f)
-                    PurchaseAndGetSomeChange(true, money - 0.2f >= 0.1f, money - 0.2f - 0.1f >= 0.05f?true:money-0.2f>=0.5f);
+                PurchaseAndGetSomeChangeTermsAndConditionsMayApply(money >= 0.2m, money - 0.2m >= 0.1m, money - 0.2m - 0.1m >= 0.05m?true:money-0.2m>=0.05m);
                 Sleep();
                 Console.Clear();
             }

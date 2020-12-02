@@ -1,5 +1,0 @@
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb18\bin\Debug\Pb18.exe.config
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb18\bin\Debug\Pb18.exe
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb18\bin\Debug\Pb18.pdb
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb18\obj\Debug\Pb18.exe
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb18\obj\Debug\Pb18.pdb

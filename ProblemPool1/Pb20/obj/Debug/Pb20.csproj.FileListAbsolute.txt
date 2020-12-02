@@ -1,6 +1,0 @@
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb20\bin\Debug\Pb20.exe.config
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb20\bin\Debug\Pb20.exe
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb20\bin\Debug\Pb20.pdb
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb20\obj\Debug\Pb20.exe
-C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb20\obj\Debug\Pb20.pdb
-C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\ProblemPool1\Pb20\obj\Debug\Pb20.csprojAssemblyReference.cache
