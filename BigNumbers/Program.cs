@@ -106,6 +106,10 @@ namespace BigNumbers
         #region Inmultire
         static string Inmultire(string str1, string str2)
         {
+            if (str1 == "")
+                return str2;
+            if (str1 == "")
+                return str1;
             int nivel = 0, trecere = 0;
             string strfin = "";
             Stack<string> st1, st2;
@@ -213,9 +217,56 @@ namespace BigNumbers
         }
         #endregion
         #region Radical
-        static string RadicalPatrat(string str1,string str2)
+        static int RadicalPatratFct(string rest,string str)
         {
-            return "";
+            if (str != "")
+                str = Inmultire(str, "2");
+            int last=0;
+            for(int i=1;i<=9;i++)
+            {
+                last = i - 1;
+                if (Inmultire(str + i.ToString(), i.ToString()).Length > rest.Length ||
+                    (Inmultire(str + i.ToString(), i.ToString()).Length == rest.Length && Inmultire(str + i.ToString(), i.ToString()).CompareTo(rest)==1))
+                    break;
+                if (i == 9)
+                    last = 9;
+            }
+            return last;
+        }
+        static string RadicalPatrat(string str1)
+        {
+            Stack<int> str1_ = new Stack<int>();
+            Stack<int> str = new Stack<int>();
+            string strfin ="";
+            foreach (char c in str1)
+                str1_.Push(int.Parse(c.ToString()));
+            int x = -1;
+            while(str1_.Count>0)
+            {
+                if (x == -1)
+                    x = str1_.Pop();
+                else
+                {
+                    x += 10 * str1_.Pop();
+                    str.Push(x);
+                    x = -1;
+                }
+            }
+            if (x != -1)
+                str.Push(x);
+            int rest=0;
+            while(str.Count>0)
+            {
+                int cifra;
+                rest = rest * 100 + str.Pop();
+                cifra = RadicalPatratFct(rest.ToString(),strfin);
+                if (strfin == "")
+                    rest = rest - cifra * cifra;
+                else
+                rest = rest -((int.Parse(strfin)*2*10+cifra)*cifra);
+                strfin += cifra.ToString();
+            }
+            return strfin;
         }
         #endregion
         static void Main(string[] args)
@@ -245,7 +296,7 @@ namespace BigNumbers
                         Console.WriteLine(Putere(nr1, nr2));
                         break;
                     case "sqrt":
-                        Console.WriteLine(RadicalPatrat(nr1, nr2));
+                        Console.WriteLine(RadicalPatrat(nr1));
                         break;
                 }
                 Console.WriteLine("\n\n");
