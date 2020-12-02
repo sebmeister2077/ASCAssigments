@@ -204,7 +204,12 @@ namespace BigNumbers
         #region Putere
         static string Putere(string str1, string str2)
         {
-            return "";
+            string strfin="1";
+            if (str2 == "0")
+                return "1";
+            for (int i = 0; i < int.Parse(str2); i++)
+                strfin = Inmultire(strfin, str1);
+            return strfin;
         }
         #endregion
         #region Radical
