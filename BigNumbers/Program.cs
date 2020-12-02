@@ -106,7 +106,42 @@ namespace BigNumbers
         #region Inmultire
         static string Inmultire(string str1, string str2)
         {
-            return "";
+            int nivel = 0, trecere = 0;
+            string strfin = "";
+            Stack<string> st1, st2;
+            st1 = new Stack<string>();
+            st2 = new Stack<string>();
+            foreach (char c in str1)
+                st1.Push(c.ToString());
+            foreach (char c in str2)
+                st2.Push(c.ToString());
+            while(st1.Count>0)
+            {
+                int aux = int.Parse(st1.Pop());
+                Stack<string> st = new Stack<string>();
+                Stack<string> staux = new Stack<string>();
+                for (int i = 0; i < nivel; i++)
+                    st.Push("0");
+                while(st2.Count()>0)
+                {
+                    staux.Push(st2.Pop());
+                    int aux2 = int.Parse(staux.Peek());
+                    aux2 = aux * aux2 + trecere;
+                    trecere = aux2 / 10;
+                    aux2 = aux2 % 10;
+                    st.Push(aux2.ToString());
+                }
+                while (staux.Count > 0)
+                    st2.Push(staux.Pop());
+                string strCurent = "";
+                while (st.Count > 0)
+                    strCurent = strCurent + st.Pop();
+                strfin = Adunare(strfin, strCurent);
+                nivel++;
+            }
+            if (trecere > 0)
+                strfin = trecere.ToString() + strfin;
+            return strfin;
         }
         #endregion
         #region Impartire
