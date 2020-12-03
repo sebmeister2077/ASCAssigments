@@ -98,8 +98,14 @@ namespace BigNumbers
             StringBuilder str = new StringBuilder();
             if (negativ)
                 str.Append("-");
+            bool zero = true;
             while (stfin.Count > 0)
+            {
+                if(stfin.Peek()=="0" && zero==true&&stfin.Count>1)
+                { stfin.Pop();continue; }
                 str.Append(stfin.Pop());
+                zero = false;
+            }
             return str.ToString();
         }
         #endregion
@@ -188,7 +194,7 @@ namespace BigNumbers
             for (i = str2.Length; i <= strr1.Length; i++)
             {
                 decateori = 0;
-                while (strPartial.CompareTo(str2) >= 0 || strPartial.Length > str2.Length)
+                while ((strPartial.CompareTo(str2) >= 0&& strPartial.Length == str2.Length) || strPartial.Length > str2.Length)
                 {
                     strPartial = Scadere(strPartial, str2);
                     decateori++;
@@ -211,7 +217,7 @@ namespace BigNumbers
             string strfin = "1";
             if (str2 == "0")
                 return "1";
-            for (int i = 0; i < int.Parse(str2); i++)
+            for (double i = 0; i < double.Parse(str2); i++)
                 strfin = Inmultire(strfin, str1);
             return strfin;
         }
@@ -273,12 +279,14 @@ namespace BigNumbers
         {
             while (true)
             {
-                string nr1, nr2 = "", strop;
+                string nr1, nr2 = "", strOp;
+                Console.Write("Numar 1: ");
                 nr1 = Console.ReadLine();
-                strop = Console.ReadLine();
-                if (strop != "sqrt")
-                    nr2 = Console.ReadLine();
-                switch (strop)
+                Console.Write("Operatie: ");
+                strOp = Console.ReadLine();
+                if (strOp != "sqrt")
+                { Console.Write("Numar 2: "); nr2 = Console.ReadLine(); }
+                switch (strOp)
                 {
                     case "+":
                         Console.WriteLine(Adunare(nr1, nr2));
