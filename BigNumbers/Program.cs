@@ -53,8 +53,14 @@ namespace BigNumbers
                     AdunareFct(ref stfin, ref st1, ref st2, true);
             }
             StringBuilder str = new StringBuilder();
+            bool zero = true;
             while (stfin.Count > 0)
+            {
+                if (stfin.Peek() == "0" && zero == true && stfin.Count > 1)
+                { stfin.Pop(); continue; }
                 str.Append(stfin.Pop());
+                zero = false;
+            }
             return str.ToString();
         }
         #endregion
