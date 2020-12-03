@@ -9,19 +9,19 @@ namespace BigNumbers
     class Program
     {
 
-        public static void Swap(ref string s1,ref string s2)
+        public static void Swap(ref string s1, ref string s2)
         {
             string aux = s1;
             s1 = s2;
             s2 = aux;
         }
         #region Adunare
-        static void AdunareFct(ref Stack<string>  stfin, ref Stack<string> stackPrinc,ref Stack<string> stackAux,bool doua=false)
+        static void AdunareFct(ref Stack<string> stfin, ref Stack<string> stackPrinc, ref Stack<string> stackAux, bool doua = false)
         {
             int aux = int.Parse(stackPrinc.Pop());
-            if(doua)
-                aux+= int.Parse(stackAux.Pop());
-            if (aux > 9&& stackPrinc.Count>0)
+            if (doua)
+                aux += int.Parse(stackAux.Pop());
+            if (aux > 9 && stackPrinc.Count > 0)
             {
                 int auxaux = int.Parse(stackPrinc.Pop());
                 auxaux++;
@@ -30,9 +30,9 @@ namespace BigNumbers
             }
             stfin.Push(aux.ToString());
         }
-        static string Adunare(string str1,string str2)
+        static string Adunare(string str1, string str2)
         {
-            Stack<string> st1, st2,stfin;
+            Stack<string> st1, st2, stfin;
             st1 = new Stack<string>();
             st2 = new Stack<string>();
             stfin = new Stack<string>();
@@ -40,7 +40,7 @@ namespace BigNumbers
                 st1.Push(c.ToString());
             foreach (char c in str2)
                 st2.Push(c.ToString());
-            while(st1.Count>0||st2.Count>0)
+            while (st1.Count > 0 || st2.Count > 0)
             {
                 if (st1.Count == 0 || st2.Count == 0)
                 {
@@ -50,7 +50,7 @@ namespace BigNumbers
                         AdunareFct(ref stfin, ref st2, ref st2);
                 }
                 else
-                    AdunareFct(ref stfin,ref st1,ref st2, true);
+                    AdunareFct(ref stfin, ref st1, ref st2, true);
             }
             StringBuilder str = new StringBuilder();
             while (stfin.Count > 0)
@@ -78,8 +78,8 @@ namespace BigNumbers
             bool negativ = false;
             Stack<string> st1, st2, stfin;
             if (str1.Length < str2.Length)
-            { Swap(ref str1, ref str2);negativ = true; }
-            if(str1.Length==str2.Length&& str2.CompareTo(str1) == 1)//al doilea este mai mare lexicografic
+            { Swap(ref str1, ref str2); negativ = true; }
+            if (str1.Length == str2.Length && str2.CompareTo(str1) == 1)//al doilea este mai mare lexicografic
             { Swap(ref str1, ref str2); negativ = true; }
             st1 = new Stack<string>();
             st2 = new Stack<string>();
@@ -119,14 +119,14 @@ namespace BigNumbers
                 st1.Push(c.ToString());
             foreach (char c in str2)
                 st2.Push(c.ToString());
-            while(st1.Count>0)
+            while (st1.Count > 0)
             {
                 int aux = int.Parse(st1.Pop());
                 Stack<string> st = new Stack<string>();
                 Stack<string> staux = new Stack<string>();
                 for (int i = 0; i < nivel; i++)
                     st.Push("0");
-                while(st2.Count()>0)
+                while (st2.Count() > 0)
                 {
                     staux.Push(st2.Pop());
                     int aux2 = int.Parse(staux.Peek());
@@ -149,9 +149,9 @@ namespace BigNumbers
         }
         #endregion
         #region Impartire
-        static string ImpartireFct1(string[] strr,int lungime, int index=0)
+        static string ImpartireFct1(string[] strr, int lungime, int index = 0)
         {
-            string str="";
+            string str = "";
             for (int i = index; i < index + lungime; i++)
                 str += strr[i];
             return str;
@@ -162,12 +162,12 @@ namespace BigNumbers
             string st = "";
             foreach (char c in str)
             {
-                if(sari)
+                if (sari)
                 {
-                    sari=false;
+                    sari = false;
                     continue;
                 }
-                st += c.ToString(); 
+                st += c.ToString();
             }
             return st;
         }
@@ -180,27 +180,27 @@ namespace BigNumbers
             if (str2 == "0")
                 return double.PositiveInfinity.ToString();
             string[] strr1 = new string[str1.Length];
-            int i = 0,decateori;
+            int i = 0, decateori;
             foreach (char c in str1)
                 strr1[i++] = c.ToString();
-            string strPartial,strfin="";
+            string strPartial, strfin = "";
             strPartial = ImpartireFct1(strr1, str2.Length);
-            for( i=str2.Length;i<=strr1.Length;i++)
+            for (i = str2.Length; i <= strr1.Length; i++)
             {
                 decateori = 0;
-                while(strPartial.CompareTo(str2) >=0||strPartial.Length>str2.Length)
+                while (strPartial.CompareTo(str2) >= 0 || strPartial.Length > str2.Length)
                 {
                     strPartial = Scadere(strPartial, str2);
                     decateori++;
                     while (strPartial.CompareTo("1") == -1 && strPartial != "")
                         strPartial = ImpartireFct2(strPartial);
                 }
-                while (strPartial.CompareTo("1") == -1&&strPartial!="")
+                while (strPartial.CompareTo("1") == -1 && strPartial != "")
                     strPartial = ImpartireFct2(strPartial);
-                if(strfin!=""||decateori!=0)
-                strfin += decateori.ToString();
-                if(i< strr1.Length)
-                strPartial += strr1[i];
+                if (strfin != "" || decateori != 0)
+                    strfin += decateori.ToString();
+                if (i < strr1.Length)
+                    strPartial += strr1[i];
             }
             return strfin;
         }
@@ -208,7 +208,7 @@ namespace BigNumbers
         #region Putere
         static string Putere(string str1, string str2)
         {
-            string strfin="1";
+            string strfin = "1";
             if (str2 == "0")
                 return "1";
             for (int i = 0; i < int.Parse(str2); i++)
@@ -217,16 +217,16 @@ namespace BigNumbers
         }
         #endregion
         #region Radical
-        static int RadicalPatratFct(string rest,string str)
+        static int RadicalPatratFct(string rest, string str)
         {
             if (str != "")
                 str = Inmultire(str, "2");
-            int last=0;
-            for(int i=1;i<=9;i++)
+            int last = 0;
+            for (int i = 1; i <= 9; i++)
             {
                 last = i - 1;
                 if (Inmultire(str + i.ToString(), i.ToString()).Length > rest.Length ||
-                    (Inmultire(str + i.ToString(), i.ToString()).Length == rest.Length && Inmultire(str + i.ToString(), i.ToString()).CompareTo(rest)==1))
+                    (Inmultire(str + i.ToString(), i.ToString()).Length == rest.Length && Inmultire(str + i.ToString(), i.ToString()).CompareTo(rest) == 1))
                     break;
                 if (i == 9)
                     last = 9;
@@ -237,11 +237,11 @@ namespace BigNumbers
         {
             Stack<int> str1_ = new Stack<int>();
             Stack<int> str = new Stack<int>();
-            string strfin ="";
+            string strfin = "";
             foreach (char c in str1)
                 str1_.Push(int.Parse(c.ToString()));
             int x = -1;
-            while(str1_.Count>0)
+            while (str1_.Count > 0)
             {
                 if (x == -1)
                     x = str1_.Pop();
@@ -254,16 +254,16 @@ namespace BigNumbers
             }
             if (x != -1)
                 str.Push(x);
-            double rest=0;
-            while(str.Count>0)
+            double rest = 0;
+            while (str.Count > 0)
             {
                 double cifra;
                 rest = rest * 100 + str.Pop();
-                cifra = RadicalPatratFct(rest.ToString(),strfin);
+                cifra = RadicalPatratFct(rest.ToString(), strfin);
                 if (strfin == "")
                     rest = rest - cifra * cifra;
                 else
-                rest = rest -((double.Parse(strfin)*2*10+cifra)*cifra);
+                    rest = rest - ((double.Parse(strfin) * 2 * 10 + cifra) * cifra);
                 strfin += cifra.ToString();
             }
             return strfin;

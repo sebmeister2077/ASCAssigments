@@ -1,6 +1,6 @@
-C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\BigNumbers\obj\Debug\BigNumbers.csprojAssemblyReference.cache
-C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\BigNumbers\bin\Debug\BigNumbers.exe.config
-C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\BigNumbers\bin\Debug\BigNumbers.exe
-C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\BigNumbers\bin\Debug\BigNumbers.pdb
-C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\BigNumbers\obj\Debug\BigNumbers.exe
-C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\BigNumbers\obj\Debug\BigNumbers.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\BigNumbers\bin\Debug\BigNumbers.exe.config
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\BigNumbers\bin\Debug\BigNumbers.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\BigNumbers\bin\Debug\BigNumbers.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\BigNumbers\obj\Debug\BigNumbers.csprojAssemblyReference.cache
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\BigNumbers\obj\Debug\BigNumbers.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\BigNumbers\obj\Debug\BigNumbers.pdb
