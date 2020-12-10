@@ -8,156 +8,209 @@ namespace BigNumbers
 {
     class Program
     {
-
         public static void Swap(ref string s1, ref string s2)
         {
             string aux = s1;
             s1 = s2;
             s2 = aux;
         }
-        #region Adunare
-        static void AdunareFct(ref Stack<string> stfin, ref Stack<string> stackPrinc, ref Stack<string> stackAux, bool doua = false)
+        public static void Remove(ref string str)
         {
-            int aux = int.Parse(stackPrinc.Pop());
-            if (doua)
-                aux += int.Parse(stackAux.Pop());
-            if (aux > 9 && stackPrinc.Count > 0)
+            //removes 0 from the left side of the string
+            int i = 0;
+            while(str[i]=='0'&&i<str.Length-1)
+            { i++; }
+            if (str[i] == '.')//am scos prea multe zerouri
+                str = "0" + str;
+            str = str.Substring(i);
+            if (CfDupaVirgula(str) > 0)
             {
-                int auxaux = int.Parse(stackPrinc.Pop());
-                auxaux++;
-                stackPrinc.Push(auxaux.ToString());
-                aux -= 10;
+                i = str.Length - 1;
+                while (str[i] == '0' && i > 0)
+                    i--;
+                if (str[i] == '.')//daca e un nr 3.0 atunci sa scoata si virgula
+                    i--;
+                if (i != str.Length - 1)
+                {
+                    string result = "";
+                    for (int j = 0; j <= i; j++)
+                        result = result + str[j].ToString();
+                    str = result;
+                }
             }
-            stfin.Push(aux.ToString());
         }
+        public static void EqualDecCount(ref string str1,ref string str2)
+        {
+            if (CfDupaVirgula(str1) + CfDupaVirgula(str2) == 0)
+                return;
+            if (CfDupaVirgula(str1) == 0)
+                str1 += ".";
+            if (CfDupaVirgula(str2) == 0)
+                str2 += ".";
+            while (CfDupaVirgula(str1) != CfDupaVirgula(str2))
+                if (CfDupaVirgula(str1) > CfDupaVirgula(str2)) 
+                    str2 += "0";
+                else
+                    str1 += "0";
+
+        }
+        public static int CfDupaVirgula(string str)
+        {
+            bool virgula = false;
+            int i = 0;
+            foreach (var c in str)
+            {
+                if (virgula)
+                    i++;
+                if (c == '.')
+                    virgula = true;
+            }
+            return i;
+        }
+        public static bool IsNumber(string str)
+        {
+            if (str == "")
+                return false;
+            bool virgula = false;
+            foreach(var c in str)
+            {
+                if ((c < '0' || c > '9') && c != '.')
+                    return false;
+                else
+                    if(c=='.')
+                {
+                    if (virgula)
+                        return false;
+                    virgula = true;
+                }
+            }
+            return true;
+        }
+        #region Adunare
         static string Adunare(string str1, string str2)
         {
-            Stack<string> st1, st2, stfin;
-            st1 = new Stack<string>();
-            st2 = new Stack<string>();
-            stfin = new Stack<string>();
-            foreach (char c in str1)
-                st1.Push(c.ToString());
-            foreach (char c in str2)
-                st2.Push(c.ToString());
-            while (st1.Count > 0 || st2.Count > 0)
+            if (str1 == "" || str2 == "")
+                return str1 + str2;
+            Remove(ref str1);
+            Remove(ref str2);
+            EqualDecCount(ref str1, ref str2);
+            if (CfDupaVirgula(str1) < CfDupaVirgula(str2))//daca primul are mai putine zecimale
+                Swap(ref str1, ref str2);
+            else
+                if (str2.Length > str1.Length)
+                Swap(ref str1, ref str2);
+            Stack<char> result=new Stack<char>();
+            int i, j,remainder=0;
+            i = str1.Length - 1;
+            j = str2.Length - 1;
+
+
+            while(i>=0||j>=0)
             {
-                if (st1.Count == 0 || st2.Count == 0)
-                {
-                    if (st1.Count > 0)
-                        AdunareFct(ref stfin, ref st1, ref st1);
-                    else
-                        AdunareFct(ref stfin, ref st2, ref st2);
-                }
+                if(CfDupaVirgula(str1)-(str1.Length-i-1)>CfDupaVirgula(str2) - (str2.Length - j - 1))
+                    result.Push(str1[i--]);
                 else
-                    AdunareFct(ref stfin, ref st1, ref st2, true);
+                {//i si j sunt pe acelasi zecimal
+                    if(i>0&&j>=0)
+                    if(str1[i]=='.')
+                    { result.Push('.');i--;j--; continue; }
+                    int aux = remainder;
+                    if(i>=0)
+                    aux += int.Parse(str1[i--].ToString());
+                    if(j>=0)
+                    aux+=int.Parse(str2[j--].ToString());
+                    remainder = 0;
+                    if (aux > 9)
+                    { remainder = 1; aux -= 10; }
+                    result.Push((char)(aux+'0'));
+                }
             }
-            StringBuilder str = new StringBuilder();
-            bool zero = true;
-            while (stfin.Count > 0)
-            {
-                if (stfin.Peek() == "0" && zero == true && stfin.Count > 1)
-                { stfin.Pop(); continue; }
-                str.Append(stfin.Pop());
-                zero = false;
-            }
-            return str.ToString();
+            if (remainder > 0)
+                result.Push((char)(remainder + '0'));
+            //build the final string
+            string strfin="";
+            while (result.Count > 0)
+                strfin = strfin + result.Pop().ToString();
+            return strfin;
         }
         #endregion
         #region Scadere
-        static void ScadereFct(ref Stack<string> stfin, ref Stack<string> stackPrinc, ref Stack<string> stackAux, bool doua = false)
-        {
-            int aux = int.Parse(stackPrinc.Pop());
-            if (doua)
-                aux -= int.Parse(stackAux.Pop());
-            if (aux < 0 && stackPrinc.Count > 0)
-            {
-                int auxaux = int.Parse(stackPrinc.Pop());
-                auxaux--;
-                stackPrinc.Push(auxaux.ToString());
-                aux += 10;
-            }
-            stfin.Push(aux.ToString());
-        }
         static string Scadere(string str1, string str2)
         {
-            bool negativ = false;
-            Stack<string> st1, st2, stfin;
-            if (str1.Length < str2.Length)
-            { Swap(ref str1, ref str2); negativ = true; }
-            if (str1.Length == str2.Length && str2.CompareTo(str1) == 1)//al doilea este mai mare lexicografic
-            { Swap(ref str1, ref str2); negativ = true; }
-            st1 = new Stack<string>();
-            st2 = new Stack<string>();
-            stfin = new Stack<string>();
-            foreach (char c in str1)
-                st1.Push(c.ToString());
-            foreach (char c in str2)
-                st2.Push(c.ToString());
-            while (st1.Count > 0 || st2.Count > 0)
+            Remove(ref str1);
+            Remove(ref str2);
+            EqualDecCount(ref str1, ref str2);
+            Stack<char> result=new Stack<char>();
+            if (str1.Length-CfDupaVirgula(str1) < str2.Length-CfDupaVirgula(str2) || (str1.Length-CfDupaVirgula(str1) == str2.Length-CfDupaVirgula(str2) && str2.CompareTo(str1) == 1))
+              Swap(ref str1, ref str2);
+            int i, j,subtracter=0;
+            i = str1.Length - 1;
+            j = str2.Length - 1;
+            while(i>=0||j>=0)
             {
-                if (st1.Count == 0 || st2.Count == 0)
-                    ScadereFct(ref stfin, ref st1, ref st1);
+                if(i>0&&j>0)
+                    if(str1[i]=='.')
+                    { i--;j--;result.Push('.'); continue; }
+                int aux = subtracter;
+                subtracter = 0;
+                int zecimaleStr1 = CfDupaVirgula(str1) - (str1.Length - i - 1), zecimaleStr2 = CfDupaVirgula(str2) - (str2.Length - j - 1);
+                if (zecimaleStr1 != zecimaleStr2 && CfDupaVirgula(str1) - (str1.Length - i - 1) > 0)//i si j inca nu sunt pe acelasi zecimal
+                    if (zecimaleStr1 > zecimaleStr2)
+                        aux += int.Parse(str1[i--].ToString());
+                    else
+                        aux -= int.Parse(str2[j--].ToString());
                 else
-                    ScadereFct(ref stfin, ref st1, ref st2, true);
+                {
+                    if (i >= 0)
+                        aux += int.Parse(str1[i--].ToString());
+                    if (j >= 0)
+                        aux -= int.Parse(str2[j--].ToString());
+                }
+                if (aux < 0)
+                { aux += 10; subtracter = -1; }
+                result.Push((char)(aux + '0'));
             }
-            StringBuilder str = new StringBuilder();
-            if (negativ)
-                str.Append("-");
-            bool zero = true;
-            while (stfin.Count > 0)
-            {
-                if(stfin.Peek()=="0" && zero==true&&stfin.Count>1)
-                { stfin.Pop();continue; }
-                str.Append(stfin.Pop());
-                zero = false;
-            }
-            return str.ToString();
+            string strfin = "";
+            while (result.Count > 0)
+                strfin = strfin + result.Pop().ToString();
+            return strfin;
         }
         #endregion
         #region Inmultire
         static string Inmultire(string str1, string str2)
         {
-            if (str1 == "")
-                return str2;
-            if (str1 == "")
-                return str1;
-            int nivel = 0, trecere = 0;
-            string strfin = "";
-            Stack<string> st1, st2;
-            st1 = new Stack<string>();
-            st2 = new Stack<string>();
-            foreach (char c in str1)
-                st1.Push(c.ToString());
-            foreach (char c in str2)
-                st2.Push(c.ToString());
-            while (st1.Count > 0)
+            Remove(ref str1);
+            Remove(ref str2);
+            if (str1 == "0" || str2 == "0")
+                return "0";
+            EqualDecCount(ref str1, ref str2);
+            string result = "0";
+            int remainder = 0,trecutDeVirgula=0;
+            for(int i=str1.Length-1;i>=0;i--)
             {
-                int aux = int.Parse(st1.Pop());
-                Stack<string> st = new Stack<string>();
-                Stack<string> staux = new Stack<string>();
-                for (int i = 0; i < nivel; i++)
-                    st.Push("0");
-                while (st2.Count() > 0)
+                if (str1[i] == '.')
+                { trecutDeVirgula = 1; continue; }
+                string current = "";
+                for(int j=str2.Length-1;j>=0;j--)
                 {
-                    staux.Push(st2.Pop());
-                    int aux2 = int.Parse(staux.Peek());
-                    aux2 = aux * aux2 + trecere;
-                    trecere = aux2 / 10;
-                    aux2 = aux2 % 10;
-                    st.Push(aux2.ToString());
+                    if (str2[j] == '.')
+                        continue;
+                    remainder += int.Parse(str1[i].ToString()) * int.Parse(str2[j].ToString());
+                    current =(remainder%10).ToString() + current;
+                    remainder /= 10;
                 }
-                while (staux.Count > 0)
-                    st2.Push(staux.Pop());
-                string strCurent = "";
-                while (st.Count > 0)
-                    strCurent = strCurent + st.Pop();
-                strfin = Adunare(strfin, strCurent);
-                nivel++;
+                if (remainder > 0)
+                    current = remainder.ToString() + current;
+                remainder = 0;
+                while (current.Length < CfDupaVirgula(str1)+CfDupaVirgula(str2))
+                    current = "0" + current;
+                if (CfDupaVirgula(str1) + CfDupaVirgula(str2) - (str1.Length - i - 1)+trecutDeVirgula > 0)
+                    current = current.Insert(current.Length-(CfDupaVirgula(str1)+CfDupaVirgula(str2) - (str1.Length - i - 1)+trecutDeVirgula), ".");
+
+                result = Adunare(result, current);
             }
-            if (trecere > 0)
-                strfin = trecere.ToString() + strfin;
-            return strfin;
+            return result;
+
         }
         #endregion
         #region Impartire
@@ -220,7 +273,10 @@ namespace BigNumbers
         #region Putere
         static string Putere(string str1, string str2)
         {
+            //TODO try and implement logarithms(very high precision) so you can make the power str2 less,less multiplication.Use a very high base(base.length=350)
             string strfin = "1";
+            if (str1 == "0" || str1 == "1")
+                return str1;
             if (str2 == "0")
                 return "1";
             for (double i = 0; i < double.Parse(str2); i++)
@@ -292,6 +348,9 @@ namespace BigNumbers
                 strOp = Console.ReadLine();
                 if (strOp != "sqrt")
                 { Console.Write("Numar 2: "); nr2 = Console.ReadLine(); }
+                if(!IsNumber(nr1)||!IsNumber(nr2))
+                    Console.WriteLine("Invalid number");
+                else
                 switch (strOp)
                 {
                     case "+":
