@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -186,6 +187,7 @@ namespace BigNumbers
             EqualDecCount(ref str1, ref str2);
             string result = "0";
             int remainder = 0,trecutDeVirgula=0;
+            int cfdpvirgula = CfDupaVirgula(str1);
             for(int i=str1.Length-1;i>=0;i--)
             {
                 if (str1[i] == '.')
@@ -202,11 +204,13 @@ namespace BigNumbers
                 if (remainder > 0)
                     current = remainder.ToString() + current;
                 remainder = 0;
-                while (current.Length < CfDupaVirgula(str1)+CfDupaVirgula(str2))
+                while (current.Length < 2*cfdpvirgula)
                     current = "0" + current;
-                if (CfDupaVirgula(str1) + CfDupaVirgula(str2) - (str1.Length - i - 1)+trecutDeVirgula > 0)
-                    current = current.Insert(current.Length-(CfDupaVirgula(str1)+CfDupaVirgula(str2) - (str1.Length - i - 1)+trecutDeVirgula), ".");
-
+                if (2 * cfdpvirgula - (str1.Length - i - 1) + trecutDeVirgula > 0)
+                    current = current.Insert(current.Length - (2 * cfdpvirgula - (str1.Length - i - 1) + trecutDeVirgula), ".");
+                for (int x = cfdpvirgula; x < str1.Length - i - 1; x++)
+                    current = current + "0";
+                    
                 result = Adunare(result, current);
             }
             return result;
@@ -238,7 +242,9 @@ namespace BigNumbers
         }
         static string Impartire(string str1, string str2)
         {
-            if (str1.Length < str2.Length)
+            Remove(ref str1);
+            Remove(ref str2);
+            if (str1.Length < str2.Length||str1=="0")
                 return "0";
             if (str1.Length == str2.Length && str2.CompareTo(str1) == 1)
                 return "0";
@@ -253,7 +259,7 @@ namespace BigNumbers
             for (i = str2.Length; i <= strr1.Length; i++)
             {
                 decateori = 0;
-                while ((strPartial.CompareTo(str2) >= 0&& strPartial.Length == str2.Length) || strPartial.Length > str2.Length)
+                while ((strPartial.CompareTo(str2) >= 0 && strPartial.Length == str2.Length) || strPartial.Length > str2.Length)
                 {
                     strPartial = Scadere(strPartial, str2);
                     decateori++;
@@ -273,15 +279,46 @@ namespace BigNumbers
         #region Putere
         static string Putere(string str1, string str2)
         {
-            //TODO try and implement logarithms(very high precision) so you can make the power str2 less,less multiplication.Use a very high base(base.length=350)
-            string strfin = "1";
-            if (str1 == "0" || str1 == "1")
+            if (str1 == "0" || str1 == "1" || str2 == "1")
                 return str1;
             if (str2 == "0")
                 return "1";
-            for (double i = 0; i < double.Parse(str2); i++)
-                strfin = Inmultire(strfin, str1);
-            return strfin;
+            Remove(ref str1);
+            Remove(ref str2);
+            if (str2.Length<9?str1.Length>int.Parse(str2):false)
+            {
+                string strfin = "1";
+                for (double i = 0; i < double.Parse(str2); i++)
+                    strfin = Inmultire(strfin, str1);
+                return strfin;
+            }
+            else
+            {
+                int intstr2=-1;
+                if (str2.Length < 9)
+                    intstr2 = int.Parse(str2);
+                string result = "1";
+                while ((str2.CompareTo("0") == 1&&intstr2==-1)||intstr2>0)
+                {
+                    if (intstr2 == -1)
+                    {
+                        if (int.Parse(str2[str2.Length - 1].ToString()) % 2 == 1)
+                        { result = Inmultire(result, str1); str2 = Scadere(str2, "1"); }
+                        if(str2!="0")
+                        str1 = Inmultire(str1, str1);
+                        str2 = Impartire(str2, "2");
+                    }
+                    else
+                    {
+                        if (intstr2 % 2 == 1)
+                            result = Inmultire(result, str1);
+                        if(intstr2!=1)
+                        str1 = Inmultire(str1, str1);
+                        intstr2 /= 2;
+                    }
+                }
+                return result;
+            }
         }
         #endregion
         #region Radical
@@ -303,6 +340,7 @@ namespace BigNumbers
         }
         static string RadicalPatrat(string str1)
         {
+            //TODO implement logarithms so that we can make the power smaller
             Stack<int> str1_ = new Stack<int>();
             Stack<int> str = new Stack<int>();
             string strfin = "";
@@ -366,8 +404,12 @@ namespace BigNumbers
                         Console.WriteLine(Impartire(nr1, nr2));
                         break;
                     case "^":
-                        Console.WriteLine(Putere(nr1, nr2));
-                        break;
+                            DateTime tstart, tstop;
+                            tstart = DateTime.Now;
+                            Console.WriteLine(Putere(nr1, nr2));
+                            tstop = DateTime.Now;
+                            Console.WriteLine("Time elapsed:{0} miliseconds",tstop.Millisecond-tstart.Millisecond+1000*(tstop.Second-tstart.Second)+1000*60*(tstop.Minute-tstart.Minute));
+                            break;
                     case "sqrt":
                         Console.WriteLine(RadicalPatrat(nr1));
                         break;
