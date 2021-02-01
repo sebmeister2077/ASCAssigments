@@ -1,0 +1,6 @@
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\bin\Debug\ProblemPool1.exe.config
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\bin\Debug\ProblemPool1.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\bin\Debug\ProblemPool1.pdb
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\obj\Debug\ProblemPool1.csprojAssemblyReference.cache
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\obj\Debug\ProblemPool1.exe
+C:\Users\Sebas\source\repos\sebmeister2077\ASCAssigments\ProblemPool1\obj\Debug\ProblemPool1.pdb

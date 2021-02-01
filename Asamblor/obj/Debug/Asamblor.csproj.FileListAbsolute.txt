@@ -1,0 +1,6 @@
+C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\Asamblor\bin\Debug\Asamblor.exe.config
+C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\Asamblor\bin\Debug\Asamblor.exe
+C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\Asamblor\bin\Debug\Asamblor.pdb
+C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\Asamblor\obj\Debug\Asamblor.csprojAssemblyReference.cache
+C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\Asamblor\obj\Debug\Asamblor.exe
+C:\Users\Sebas\Source\Repos\sebmeister2077\ASCAssigments\Asamblor\obj\Debug\Asamblor.pdb
